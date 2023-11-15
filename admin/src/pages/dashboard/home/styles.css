@@ -1,0 +1,19 @@
+.container {
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  align-content: center;
+
+  width: 88%;
+  
+  margin: auto;
+}
+
+.box {
+  margin-right: 25px;
+  margin-left: 25px;
+  margin-bottom: 50px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 10px;
+}
