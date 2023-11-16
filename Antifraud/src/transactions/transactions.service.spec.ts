@@ -1,6 +1,6 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { TransactionsService } from './transactions.service';
 import { TransactionDto } from './dto/validate-transaction.dto';
+import { TransactionsService } from './transactions.service';
+import { Test, TestingModule } from '@nestjs/testing';
 
 describe('TransactionsService', () => {
   let service: TransactionsService;

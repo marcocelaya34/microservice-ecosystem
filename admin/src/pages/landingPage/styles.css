@@ -1,0 +1,78 @@
+.containerLanding {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.headerLanding {
+  flex: 1;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logoHeader {
+  height: 7vh;
+  margin-left: 50px;
+}
+
+.contentLanding {
+  flex: 10;
+  display: flex;
+  flex-direction: column;
+}
+
+.butttonLanding {
+  margin-right: 50px;
+  border: 2px solid white;
+  border-radius: 100px;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-family: "Montserrat", sans-serif;
+  cursor: pointer;
+}
+
+.titleLanding {
+  font-family: "Montserrat-Bold", sans-serif;
+  font-size: 80px;
+  margin-left: 50px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: white;
+  text-align: center;
+}
+
+.subtitleLanding {
+  font-family: "Montserrat-Light", sans-serif;
+  font-size: 20px;
+  margin-left: 50px;
+  margin-top: 30px;
+  margin-bottom: 0px;
+  color: white;
+  text-align: center;
+}
+
+.logoLanding {
+  margin: auto;
+  width: 30vw;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../../assets/fonts/Montserrat/static/Montserrat-Regular.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat-Bold";
+  src: url("../../assets/fonts/Montserrat/static/Montserrat-SemiBold.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat-Light";
+  src: url("../../assets/fonts/Montserrat/static/Montserrat-Light.ttf")
+    format("truetype");
+}

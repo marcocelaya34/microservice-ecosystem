@@ -1,20 +1,17 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { ApolloProvider, HttpLink, split } from "@apollo/client";
-import { client } from "./utils/apolloClient";
+import TransactionsForm from "./pages/dashboard/transactionsForm/transactionsForm";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Home from "./pages/dashboard/home/home";
-import ErrorPage from "./pages/notFound/notFound";
 import LandingPage from "./pages/landingPage/landingPage";
-import Dashboard from "./pages/dashboard/dashboard";
-import { createClient } from "graphql-ws";
-import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
-import { getMainDefinition } from "@apollo/client/utilities";
-import { Auth0Provider } from "@auth0/auth0-react";
 import { AuthenticationGuard } from "./utils/guardAuth0";
+import Dashboard from "./pages/dashboard/dashboard";
+import { Auth0Provider } from "@auth0/auth0-react";
+import ErrorPage from "./pages/notFound/notFound";
+import reportWebVitals from "./reportWebVitals";
+import { ApolloProvider } from "@apollo/client";
+import Home from "./pages/dashboard/home/home";
+import { client } from "./utils/apolloClient";
+import ReactDOM from "react-dom/client";
+import React from "react";
+import "./index.css";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +25,11 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
 
     children: [
+      {
+        path: "/dashboard/form",
+        element: <AuthenticationGuard component={TransactionsForm} />,
+        errorElement: <ErrorPage />,
+      },
       {
         path: "/dashboard/home",
         element: <AuthenticationGuard component={Home} />,
@@ -47,9 +49,9 @@ root.render(
         domain="dev-qpupby7k72aeyf55.us.auth0.com"
         clientId="9jXehWyKu2wlRv1lUpPFrTPIilYk72B5"
         authorizationParams={{
-          redirect_uri: window.location.origin,
+          redirect_uri: `${window.location.origin}/dashboard/home`,
           audience: "https://authenticator-api",
-          scope: "read:transactions	"
+          scope: "read:transactions openid profile email phone",
         }}
       >
         <RouterProvider router={router} />
@@ -58,7 +60,4 @@ root.render(
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

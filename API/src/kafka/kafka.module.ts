@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { KafkaService } from './kafka.service';
 import { KAFKA_BROKER } from './kafka.constants';
+import { KafkaService } from './kafka.service';
+import { Module } from '@nestjs/common';
 
 @Module({
   imports: [

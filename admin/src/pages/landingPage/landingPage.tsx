@@ -1,33 +1,40 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import React, { useEffect, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import React from "react";
+
+
+import "./styles.css";
+
+import logo from "../../assets/images/logo.png";
+import logoLanding from "../../assets/images/landing.png";
 
 const LoginButton = () => {
-    const { loginWithRedirect } = useAuth0();
-  
-    return <button onClick={() => loginWithRedirect()}>Log In</button>;
-  }; 
-
-const LandingPage: React.FC = () => {
-
-  const { isAuthenticated} = useAuth0();
-  
-
-
-  useEffect(() => { 
-    if (isAuthenticated) {
-      window.location.href = "/dashboard/home";
-    }
-  }
-  );
-
+  const { loginWithRedirect } = useAuth0();
 
   return (
-    <div>
-      <h1>Bienvenido a nuestra aplicación</h1>
-      <p>Esta es nuestra increíble página de inicio.</p>
-     
-      <LoginButton />
+    <div
+      className="butttonLanding"
+      onClick={async () => await loginWithRedirect()}
+    >
+      <p> Login</p>
+    </div>
+  );
+};
+
+const LandingPage: React.FC = () => {
+  return (
+    <div className="containerLanding">
+      <div className="headerLanding">
+        <img src={logo} alt="logo" className="logoHeader" />
+        <LoginButton />
+      </div>
+      <div className="contentLanding">
+        <p className="titleLanding">Microservices</p>
+        <p className="titleLanding">Ecosystem</p>
+        <p className="subtitleLanding">
+          Sistema de procesamiento y valición de transacciones{" "}
+        </p>
+        <img src={logoLanding} alt="logo" className="logoLanding" />
+      </div>
     </div>
   );
 };

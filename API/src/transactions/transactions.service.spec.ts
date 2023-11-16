@@ -1,26 +1,35 @@
-import { Repository } from 'typeorm';
+import { Transaction } from '../database/entities/transaction.entity';
+import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { TransactionsService } from './transactions.service';
 import { KafkaService } from '../kafka/kafka.service';
-import { CreateTransactionDto } from './dto/create-transaction.dto';
-import { Transaction } from '../database/entities/transaction.entity';
-import { TransactionStatusName, UpdateTransactionDto } from './dto/update-transaction.dto';
+import { AuthService } from 'src/auth/auth.service';
+import { Repository } from 'typeorm';
+import {
+  TransactionStatusName,
+  UpdateTransactionDto,
+} from './dto/update-transaction.dto';
 
 describe('TransactionsService', () => {
-  let service: TransactionsService;
   let repository: jest.Mocked<Repository<Transaction>>;
   let kafkaService: jest.Mocked<KafkaService>;
+  let authService: jest.Mocked<AuthService>;
+  let service: TransactionsService;
 
   beforeEach(() => {
     repository = {
+      findOneBy: jest.fn(),
+      update: jest.fn(),
       create: jest.fn(),
       save: jest.fn(),
-      update: jest.fn(),
       find: jest.fn(),
-      findOneBy: jest.fn(),
     } as any;
 
     kafkaService = {
       sendMessage: jest.fn(),
+    } as any;
+
+    authService = {
+      validateAccessToken: jest.fn(),
     } as any;
 
     service = new TransactionsService(repository, kafkaService);

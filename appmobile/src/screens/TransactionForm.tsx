@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
 import {View, TextInput, Button, StyleSheet, Text} from 'react-native';
-import {useMutation} from '@apollo/client';
 import {INCREMENT_COUNTER} from '../utils/graphql';
+import {useMutation} from '@apollo/client';
+import React, {useState} from 'react';
 
 const TransactionForm: React.FC = () => {
   const [accountExternalIdDebit, setField1] = useState('');

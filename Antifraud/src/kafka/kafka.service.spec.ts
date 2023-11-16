@@ -1,6 +1,6 @@
+import { Test, TestingModule } from '@nestjs/testing';
 import { ClientKafka } from "@nestjs/microservices";
 import { KafkaService } from "./kafka.service";
-import { Test, TestingModule } from '@nestjs/testing';
 
 describe('KafkaService (onModuleInit)', () => {
   let service: KafkaService;

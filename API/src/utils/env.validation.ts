@@ -1,5 +1,5 @@
-import { plainToInstance } from 'class-transformer';
 import { IsNumber, IsString, validateSync } from 'class-validator';
+import { plainToInstance } from 'class-transformer';
 
 // This class represents the environment variables that the application needs
 class EnvironmentVariables {

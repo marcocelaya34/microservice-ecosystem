@@ -1,7 +1,11 @@
-import React, { useEffect, useState, useMemo } from "react";
 import { useQuery, gql, useSubscription } from "@apollo/client";
+import { useEffect, useState } from "react";
+import moment from "moment";
 import "./styles.css";
-import { Flex } from "antd";
+
+import TableComponent from "../../../components/tableComponent";
+
+moment.locale("es");
 
 interface Transaction {
   uuid: string;
@@ -56,31 +60,9 @@ interface Props {
   data: any;
 }
 
-const DataComponent: React.FC<Props> = ({ data }) => {
-  const renderedData = useMemo(
-    () =>
-      data.map((item: any) => {
-        return (
-          <div key={item.uuid} className="box">
-            <p>{item.accountExternalIdDebit}</p>
-            <p>{item.accountExternalIdCredit}</p>
-            <p>{item.tranferTypeId}</p>
-            <p>{item.value}</p>
-            <p>{item.transactionExternalId}</p>
-            <p>{item.transactionType?.name}</p>
-            <p>{item.transactionStatus?.name}</p>
-            <p>{item.createdAt}</p>
-            <p>{item.updatedAt}</p>
-          </div>
-        );
-      }),
-    [data]
-  );
-
-  return renderedData;
-};
 
 function Home() {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const { data: subscriptionData } = useSubscription(
     UPDATE_TRANSACTIONS_SUBSCRIPTION
   );
@@ -88,11 +70,9 @@ function Home() {
     pollInterval: 500,
   });
 
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-
   useEffect(() => {
     if (queryData) {
-      setTransactions(queryData.getTransactions);
+      setTransactions(queryData.getTransactions.map((item: Transaction) => {return {...item, key: item.uuid}}));
     }
   }, [queryData]);
 
@@ -113,21 +93,15 @@ function Home() {
     }
   }, [subscriptionData]);
 
-  const sortedTransactions = useMemo(() => {
-    return [...transactions].sort(
-      (a:Transaction, b:Transaction) => +new Date(b.createdAt) - +new Date(a.createdAt)
-    );
-  }, [transactions]);
-
   return (
-    <div>
-      <h1>Home</h1>
-      <div className="container">
-        <Flex wrap="wrap" gap="small" justify="flex-start" align="center">
-          {sortedTransactions.length > 0 && <DataComponent data={sortedTransactions} />}
-        </Flex>
+    <>
+      <div className="titleContainer">
+        <h5>Transacciones</h5>
       </div>
-    </div>
+      <div className="containerHome">
+        <TableComponent data={transactions} />
+      </div>
+    </>
   );
 }
 

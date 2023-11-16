@@ -7,6 +7,6 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   @Post()
   validate(@Res() res: Response) {
-    res.status(200).json({ message: 'User authorized' });
+    res.status(200).json({ message: 'User authorized', statusCode: 200 });
   }
 }

@@ -1,13 +1,13 @@
-import { Module } from '@nestjs/common';
-import { TransactionsService } from './transactions.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { Transaction } from '../database/entities/transaction.entity';
-import { KafkaModule } from '../kafka/kafka.module';
-import { TransactionsResolver } from './transactions.resolver';
-import { Context, GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { join } from 'path';
+import { TransactionsResolver } from './transactions.resolver';
+import { TransactionsService } from './transactions.service';
 import { AuthService } from 'src/auth/auth.service';
+import { KafkaModule } from '../kafka/kafka.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { GraphQLModule } from '@nestjs/graphql';
+import { Module } from '@nestjs/common';
+import { join } from 'path';
 
 @Module({
   imports: [

@@ -1,18 +1,17 @@
 import {
   Args,
+  Query,
   Context,
   Mutation,
-  Query,
   Resolver,
   Subscription,
 } from '@nestjs/graphql';
-import { TransactionsService } from './transactions.service';
 import { Transaction } from '../database/entities/transaction.entity';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
+import { TransactionsService } from './transactions.service';
+import { AuthService } from '../auth/auth.service';
 import { PubSub } from 'graphql-subscriptions';
-import { AuthService } from 'src/auth/auth.service';
-import { Req } from '@nestjs/common';
 import { Request } from 'express';
 
 const pubSub = new PubSub();
@@ -52,8 +51,10 @@ export class TransactionsResolver {
     @Args('createTransactionDTO') createTransactionDTO: CreateTransactionDto,
     @Context() context: { req: Request },
   ) {
-    const token = context?.req?.headers?.authorization;
-    await this.authService.validateAccessToken(token);
+    const token = context?.req?.headers?.bearer;
+    await this.authService.validateAccessToken(
+      Array.isArray(token) ? token[0] : token,
+    );
 
     return this.transactionsService.create(createTransactionDTO);
   }

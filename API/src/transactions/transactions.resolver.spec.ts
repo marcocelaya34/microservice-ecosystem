@@ -1,13 +1,21 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import {
+  TransactionStatusName,
+  UpdateTransactionDto,
+} from './dto/update-transaction.dto';
+import { Transaction } from '../database/entities/transaction.entity';
+import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { TransactionsResolver } from './transactions.resolver';
 import { TransactionsService } from './transactions.service';
-import { CreateTransactionDto } from './dto/create-transaction.dto';
-import { TransactionStatusName, UpdateTransactionDto } from './dto/update-transaction.dto';
-import { Transaction } from '../database/entities/transaction.entity';
+import { ParamsDictionary } from 'express-serve-static-core';
+import { Test, TestingModule } from '@nestjs/testing';
+import { AuthService } from '../auth/auth.service';
+import { Request } from 'express';
+import { ParsedQs } from 'qs';
 
 describe('TransactionsResolver', () => {
   let resolver: TransactionsResolver;
   let service: jest.Mocked<TransactionsService>;
+  let authService: jest.Mocked<AuthService>;
 
   beforeEach(async () => {
     service = {
@@ -17,10 +25,15 @@ describe('TransactionsResolver', () => {
       create: jest.fn(),
     } as any;
 
+    authService = {
+      validateAccessToken: jest.fn(),
+    } as any;
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         TransactionsResolver,
         { provide: TransactionsService, useValue: service },
+        { provide: AuthService, useValue: authService },
       ],
     }).compile();
 
@@ -51,7 +64,7 @@ describe('TransactionsResolver', () => {
     expect(service.update).toHaveBeenCalledWith(updateTransactionDTO);
   });
 
-  it('should create a transaction', () => {
+  it('should create a transaction', async () => {
     const createTransactionDTO: CreateTransactionDto = {
       accountExternalIdDebit: 'debit-id',
       accountExternalIdCredit: 'credit-id',
@@ -61,7 +74,10 @@ describe('TransactionsResolver', () => {
     jest
       .spyOn(service, 'create')
       .mockImplementation(() => Promise.resolve(new Transaction()));
-    resolver.createTransaction(createTransactionDTO);
+    const req: Request<ParamsDictionary, any, any, ParsedQs> = {
+      headers: { bearer: 'token' },
+    } as any;
+    await resolver.createTransaction(createTransactionDTO, { req });
     expect(service.create).toHaveBeenCalledWith(createTransactionDTO);
   });
 });

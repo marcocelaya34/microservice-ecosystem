@@ -1,12 +1,11 @@
-import { Field, InputType, registerEnumType } from '@nestjs/graphql';
 import { IsEnum, IsNotEmpty, IsNotEmptyObject, IsUUID } from 'class-validator';
+import { Field, InputType, registerEnumType } from '@nestjs/graphql';
 
 export enum TransactionStatusName {
   PENDING = 'pending',
   APPROVED = 'approved',
   REJECTED = 'rejected',
 }
-
 
 registerEnumType(TransactionStatusName, {
   name: 'TransactionStatusName',

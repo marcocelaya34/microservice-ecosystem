@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
 import { TransactionsModule } from './transactions/transactions.module';
-import { ConfigModule } from '@nestjs/config';
 import { validate } from './utils/env.validation';
+import { ConfigModule } from '@nestjs/config';
+import { Module } from '@nestjs/common';
 
 @Module({
   imports: [

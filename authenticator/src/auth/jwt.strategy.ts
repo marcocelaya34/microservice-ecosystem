@@ -1,15 +1,13 @@
 import { Injectable, UnauthorizedException, Inject } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
+import { ConfigService } from '@nestjs/config';
 import { passportJwtSecret } from 'jwks-rsa';
-
-import { JwtPayload } from './interfaces/jwt-payload.interface';
-import { AuthService } from './auth.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(configService: ConfigService, authService: AuthService) {
+  constructor(configService: ConfigService) {
     super({
       secretOrKeyProvider: passportJwtSecret({
         cache: true,
@@ -30,28 +28,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   validate(payload: JwtPayload): JwtPayload {
     const minimumScope = ['read:transactions'];
 
-    console.log('payload:', payload);
-    console.log('payload2:', payload?.scope
-    ?.split(' '));
-
-    const arr = payload?.scope
-    ?.split(' ');
-
-    console.log('arr:', arr.map((item) => minimumScope.includes(item)));
-    
-    
-
     const hasScope = payload?.scope
       ?.split(' ')
       .filter((item) => minimumScope.includes(item));
 
-
-      console.log('hasScope:', hasScope.length);
-      
-
     if (hasScope.length === 0) {
-      console.log('Entro');
-      
       throw new UnauthorizedException('Insufficient scope');
     }
 

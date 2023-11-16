@@ -1,15 +1,15 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { TransactionsController } from './transactions.controller';
-import { TransactionsService } from './transactions.service';
 import { TransactionDto } from './dto/validate-transaction.dto';
+import { TransactionsService } from './transactions.service';
+import { Test, TestingModule } from '@nestjs/testing';
 import axios from 'axios';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 enum TransactionState {
-  Approved = 'approved',
-  Rejected = 'rejected',
+  Approved = 'APPROVED',
+  Rejected = 'REJECTED',
 }
 
 describe('TransactionsController', () => {

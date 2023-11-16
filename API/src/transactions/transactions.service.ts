@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { Transaction } from '../database/entities/transaction.entity';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { KafkaService } from '../kafka/kafka.service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class TransactionsService {

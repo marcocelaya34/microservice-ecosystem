@@ -33,8 +33,8 @@ describe('UpdateTransactionDto', () => {
 
   it('should be valid with all fields', async () => {
     const newDto = new UpdateTransactionDto();
-    const uuid = '123e4567-e89b-12d3-a456-426614174000'; 
-    const transactionStatus = { name: 'completed' }; 
+    const uuid = '123e4567-e89b-12d3-a456-426614174000';
+    const transactionStatus = { name: 'completed' };
 
     Object.assign(newDto, { uuid, transactionStatus });
 

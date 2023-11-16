@@ -1,7 +1,7 @@
-import { Controller, ValidationPipe } from '@nestjs/common';
-import { TransactionsService } from './transactions.service';
 import { TransactionDto } from './dto/validate-transaction.dto';
 import { EventPattern, Payload } from '@nestjs/microservices';
+import { TransactionsService } from './transactions.service';
+import { Controller, ValidationPipe } from '@nestjs/common';
 import axios from 'axios';
 
 enum TransactionState {
@@ -36,7 +36,6 @@ export class TransactionsController {
     try {
       // Sends the GraphQL request and logs the response
       const response = await this.sendGraphQLRequest(data);
-      console.log(JSON.stringify(response.data));
     } catch (error) {
       // If there's an error, it logs the error
       console.error(error);

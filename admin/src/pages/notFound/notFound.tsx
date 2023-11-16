@@ -1,16 +1,10 @@
-import { useRouteError } from "react-router-dom";
+import "./styles.css";
 
 export default function ErrorPage() {
-  const error:any = useRouteError();
-  console.error(error);
-
   return (
-    <div id="error-page">
+    <div className="errorPage" id="error-page">
       <h1>Oops!</h1>
-      <p>Sorry, an unexpected error has occurred.</p>
-      <p>
-        <i>{error.statusText || error.message}</i>
-      </p>
+      <p>La página no existe : (</p>
     </div>
   );
 }
