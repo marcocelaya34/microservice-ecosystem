@@ -37,6 +37,7 @@ To install the project on your local machine, follow these steps:
 
 The application will be available at the default URL: http://localhost:3000.
 
-## License
+## Authors
 
-This project is licensed under the MIT license. See the [LICENSE](LICENSE.md) file for more details.
+- **Marco Antonio Celaya Ordaz** - *Initial work* - [Marco Celaya - Linkeding](https://github.com/marcocelaya34)
+

@@ -38,5 +38,7 @@ The "Authenticator" microservice is an application written in TypeScript and dev
    npm run start:dev
    ```
 
-License
-This project is licensed under the MIT License. Refer to the LICENSE file for more details.
+## Authors
+
+- **Marco Antonio Celaya Ordaz** - *Initial work* - [Marco Celaya - Linkeding](https://github.com/marcocelaya34)
+
